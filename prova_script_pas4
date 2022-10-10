@@ -1,0 +1,12 @@
+#!/bin/awk -f
+
+
+#for linia in 'cat Movies.csv'; do
+#  rec=($(echo $reg | tr ',' ' '))
+#  for columna in ${rec[*]:12:15}; do
+#    grep -v " " columna >> pas4
+#  done
+#done
+
+BEGIN {}
+ 
