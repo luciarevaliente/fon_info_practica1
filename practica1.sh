@@ -22,10 +22,11 @@ var5=$(( $var3-$var4))
 # Busca les línies que comencen per ts (show) i les guarda a Shows.csv
 # Contem quantes línies hi ha a l'arxiu
 grep  "^ts" pas2 > Shows.csv
-var6=$(wc -l Shows.csv)
+var6=$(wc -l < Shows.csv)
 # Busca les líines que comencen per tm (movie) i les guarda a Movies.csv
 grep "^tm" pas2 > Movies.csv
-var7=$(wc -l Movies.csv)
+var7=$(wc -l < Movies.csv)
+
 var8=$(( $var6+$var7 ))
 var8==var5
 # 1 (True)
