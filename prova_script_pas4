@@ -4,6 +4,32 @@
 for linia in 'cat Movies.csv'; do
   rec=($(echo $reg | tr ',' ' '))
   for columna in ${rec[*]:12:15}; do
-    grep -v "^[[:space:]]" columna >> pas4
+    grep -v "^[[:space:]]" columna > pas4
   done
 done
+
+
+
+
+awk 'BEGIN{}; ; ' Movies.csv
+
+
+
+
+awk -F',' -v "^[[:space:]]"; 
+
+
+
+
+
+for linia in 'cat Movies.csv'; do
+  rec=($(echo $reg | tr ',' ' '))
+  for columna in ${rec[*]:12:15}; do
+    grep -v "^[[:space:]]" columna > pas4
+  done
+done
+
+
+echo "A l'arxiu Movies.csv hi ha $var7 linies"
+contar=$(wc -l < pas4)
+echo "Al pas4 hi ha $contar linies"

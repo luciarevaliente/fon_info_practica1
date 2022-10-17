@@ -30,10 +30,32 @@ var7=$(wc -l < Movies.csv)
 
 var8=$(( $var6+$var7 ))
 
+echo $var8
+echo $var4
 
 #hay que hacer un if: ESTÁ MAL
-if [$var8 == $var4]; then
+if [ $var8 == $var4 ]; then
   echo "1"
+else
+  echo "0"
 fi
 
+
 # PAS 4
+awk -F',' '{if ($12 != ""){print $0}}' Movies.csv > Movies_columna12.csv
+awk -F',' '{if ($13 != ""){print $0}}' Movies_columna12.csv > Movies_columna13.csv
+awk -F',' '{if ($14 != ""){print $0}}' Movies_columna13.csv > Movies_columna14.csv
+awk -F',' '{if ($15 != ""){print $0}}' Movies_columna14.csv > Movies_columna15.csv
+var9=$(wc -l < Movies_columna12.csv)
+# S'han esborrat 404 línies del Movies.csv
+var10=$(( $var7-$var9 ))
+echo "S'han esborrat $var10 linies de Movies.csv"
+
+awk -F',' '{if ($12 != ""){print $0}}' Shows.csv > Shows_columna12.csv
+awk -F',' '{if ($13 != ""){print $0}}' Shows_columna12.csv > Shows_columna13.csv
+awk -F',' '{if ($14 != ""){print $0}}' Shows_columna13.csv > Shows_columna14.csv
+awk -F',' '{if ($15 != ""){print $0}}' Shows_columna14.csv > Shows_columna15.csv
+var11=$(wc -l < Shows_columna12.csv)
+# S'han esborrat 231 línies del Shows.csv
+var12=$(( $var6-$var11 ))
+echo "S'han esborrat $var12 linies de Shows.csv"
