@@ -1,12 +1,9 @@
-#!/bin/awk -f
+#!/bin/bash
 
 
-#for linia in 'cat Movies.csv'; do
-#  rec=($(echo $reg | tr ',' ' '))
-#  for columna in ${rec[*]:12:15}; do
-#    grep -v " " columna >> pas4
-#  done
-#done
-
-BEGIN {}
- 
+for linia in 'cat Movies.csv'; do
+  rec=($(echo $reg | tr ',' ' '))
+  for columna in ${rec[*]:12:15}; do
+    grep -v "^[[:space:]]" columna >> pas4
+  done
+done

@@ -6,16 +6,17 @@ grep ^t"*[ms]" titles.cvs > pas1
 var2=$(wc -l < pas1)
 var3=$(( $var1-$var2 ))
 # S'han esborrat 171 línes
+echo "S'han esborrat $var3 linies"
 
 
 
 # PAS 2
 # Busca a la segona columna els caràcters [#'"¿¡] i la resta, els guarda en pas2
-grep -v "^[[:alnum:]]*,[#\¡\¿\'\"]" pas1 > pas2
+grep -v "^[[:alnum:]]*,[#\'\"\¿\¡]" pas1 > pas2
 var4=$(wc -l < pas2)
-var5=$(( $var3-$var4))
+var5=$(( $var2-$var4 ))
 # S'han esborrat 12 línies
-
+echo "S'han esborrat $var5 linies"
 
 
 # PAS 3
@@ -28,8 +29,11 @@ grep "^tm" pas2 > Movies.csv
 var7=$(wc -l < Movies.csv)
 
 var8=$(( $var6+$var7 ))
-var8==var5
-# 1 (True)
 
+
+#hay que hacer un if: ESTÁ MAL
+if [$var8 == $var4]; then
+  echo "1"
+fi
 
 # PAS 4
