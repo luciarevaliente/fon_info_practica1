@@ -58,8 +58,13 @@ echo "S'han esborrat $var12 linies de Shows.csv"
 # vaya a la siguiente linia y compare el valor de la variable con el valor de la columnaa 13
 # si el valor de la linia es más grande que el de la variable, que guarde ese nuevo valor en la variable; sino que no haga nad
 # HAY QUE HACERLO CON LA COLUMNA 13 Y LA 14
-awk -F',' {}
+awk -F',' 'BEGIN {max13=0}; {if($13>max13){max13=$13}}; END{print "El valor maxim de vots es " max13}' Movies.csv
+awk -F',' 'BEGIN {max14=0}; {if($14>max14){max14=$14}}; END{print "El valor maxim de popularitat es " max14}' Movies.csv
+
+echo max13
+echo $max13
+
 
 # queremos que añada en la última columna de cada fila lo que pone entre "$13/variable creada antes"
 # HAY QUE HACERLO CON EL MOVIES Y EL SHOWS
-awk '{print $0 "\t" ", $($13/$(variablecreada1), $($14/$(variablecreada2))"}' Movies_columna15.csv > Movies_columna16.csv
+#awk -F',' -v 'BEGIN{fiabilitat13=$(( $12*($13/max13) )); fiabilitat14=$(( $15*($14/max14)))}; {print $0 ", fiabilitat13, fiabilitat14"}' Movies_columna15.csv > Movies_columna16.csv
