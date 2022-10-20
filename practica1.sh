@@ -61,3 +61,9 @@ awk -F',' -v max13=$max13 -v max14=$max14 '{fiabilitat13=( $12*($13/max13) ); fi
 # cut -d',' -f16,17 Shows_f.csv | less
 
 # PAS 6
+# IMBD
+# e
+awk -F',' 'BEGIN {max=0; registre=0}; {if ($16>max) {max=$16; registre=$0}}; END{print registre}' Movies_f.csv | cut -d',' -f1,2,9,16
+
+# f
+awk -F',' 'BEGIN {max=0; registre=0}; {if ($16>max) {max=$16; registre=$0}}; END{print registre}' Shows_f.csv | cut -d',' -f1,2,9,16
