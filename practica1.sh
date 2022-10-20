@@ -34,37 +34,30 @@ fi
 
 
 # PAS 4
-awk -F',' '{if ($12 != ""){print $0}}' Movies.csv > Movies_columna12.csv
-awk -F',' '{if ($13 != ""){print $0}}' Movies_columna12.csv > Movies_columna13.csv
-awk -F',' '{if ($14 != ""){print $0}}' Movies_columna13.csv > Movies_columna14.csv
-awk -F',' '{if ($15 != ""){print $0}}' Movies_columna14.csv > Movies_columna15.csv
-var9=$(wc -l < Movies_columna15.csv)
-# S'han esborrat 549 línies del Movies.csv
+awk -F',' '{if (($12 != "") && ($13 != "") && ($14 != "") && ($15 != "")){print $0}}' Movies.csv > Movies_net.csv
+var9=$(wc -l < Movies_net.csv)
 var10=$(( $var7-$var9 ))
 echo "S'han esborrat $var10 linies de Movies.csv"
+# S'han esborrat 549 línies del Movies.csv
 
-awk -F',' '{if ($12 != ""){print $0}}' Shows.csv > Shows_columna12.csv
-awk -F',' '{if ($13 != ""){print $0}}' Shows_columna12.csv > Shows_columna13.csv
-awk -F',' '{if ($14 != ""){print $0}}' Shows_columna13.csv > Shows_columna14.csv
-awk -F',' '{if ($15 != ""){print $0}}' Shows_columna14.csv > Shows_columna15.csv
-var11=$(wc -l < Shows_columna15.csv)
-# S'han esborrat 316 línies del Shows.csv
+awk -F',' '{if (($12 != "") && ($13 != "") && ($14 != "") && ($15 != "")){print $0}}' Shows.csv > Shows_net.csv
+var11=$(wc -l < Shows_net.csv)
 var12=$(( $var6-$var11 ))
 echo "S'han esborrat $var12 linies de Shows.csv"
+# S'han esborrat 316 línies del Shows.csv
 
 
 # PAS 5
-# vamos a la primera línia i que guarde el valor de la columna 13 en una variable
-# vaya a la siguiente linia y compare el valor de la variable con el valor de la columnaa 13
-# si el valor de la linia es más grande que el de la variable, que guarde ese nuevo valor en la variable; sino que no haga nad
-# HAY QUE HACERLO CON LA COLUMNA 13 Y LA 14
-awk -F',' 'BEGIN {max13=0}; {if($13>max13){max13=$13}}; END{print "El valor maxim de vots es " max13}' Movies.csv
-awk -F',' 'BEGIN {max14=0}; {if($14>max14){max14=$14}}; END{print "El valor maxim de popularitat es " max14}' Movies.csv
+# MOVIES.CSV
+max13=$(awk -F',' 'BEGIN {max13=0}; {if($13>max13){max13=$13}}; END{print max13}' Movies.csv)
+max14=$(awk -F',' 'BEGIN {max14=0}; {if($14>max14){max14=$14}}; END{print max14}' Movies.csv)
+awk -F',' -v max13=$max13 -v max14=$max14 '{fiabilitat13=( $12*($13/max13) ); fiabilitat14=( $15*($14/max14)); print $0 "," fiabilitat13 "," fiabilitat14}' Movies_net.csv > Movies_f.csv
+# cut -d',' -f16,17 Movies_f.csv | less
 
-echo max13
-echo $max13
+# SHOWS.CSV
+max13=$(awk -F',' 'BEGIN {max13=0}; {if($13>max13){max13=$13}}; END{print max13}' Shows.csv)
+max14=$(awk -F',' 'BEGIN {max14=0}; {if($14>max14){max14=$14}}; END{print max14}' Shows.csv)
+awk -F',' -v max13=$max13 -v max14=$max14 '{fiabilitat13=( $12*($13/max13) ); fiabilitat14=( $15*($14/max14)); print $0 "," fiabilitat13 "," fiabilitat14}' Shows_net.csv > Shows_f.csv
+# cut -d',' -f16,17 Shows_f.csv | less
 
-
-# queremos que añada en la última columna de cada fila lo que pone entre "$13/variable creada antes"
-# HAY QUE HACERLO CON EL MOVIES Y EL SHOWS
-#awk -F',' -v 'BEGIN{fiabilitat13=$(( $12*($13/max13) )); fiabilitat14=$(( $15*($14/max14)))}; {print $0 ", fiabilitat13, fiabilitat14"}' Movies_columna15.csv > Movies_columna16.csv
+# PAS 6
